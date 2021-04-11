@@ -10,14 +10,10 @@
                 <div class="col-md-6">
                     <ul class="list-group">
                         <li class="list-group-item">Name: {{$user->name}}</li>
-                        <li class="list-group-item">Surname: {{$user->surname}}</li>
                         <li class="list-group-item">Is suspended?: {{$user->is_suspended ? 'Yes' : 'No'}}</li>
-                        <li class="list-group-item">Email: {{$user->email}}</li>
-                        <li class="list-group-item">Phone: {{$user->phone}}</li>
                         @if ($user->hiring_date != null)
                         <li class="list-group-item">Hiring date: {{$user->hiring_date}}</li>
                         @endif
-                        <li class="list-group-item">Birthday: {{$user->birth_date}}</li>
                         <li class="list-group-item">Role: {{
                             $user->role == 0 ? 'User' : ($user->role == 1 ? 'Customer success specialist' : 'Admin')
                         }}</li>
@@ -30,7 +26,7 @@
                             <a href="#"><button class="btn-primary w-100">My trips</button></a>
                         </div>
                         <div class="col-md-4">
-                            <a href="#"><button class="btn-secondary w-100">Contact info</button></a>
+                            <a href="{{route('contact_info')}}"><button class="btn-secondary w-100">Contact info</button></a>
                         </div>
                     </div>
                 </div>
