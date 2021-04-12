@@ -85,19 +85,19 @@ class UsersController extends Controller
     {
         //
     }
-    public function showContactInfo()
+    public function showPersonalData()
     {
         return view('contact_info.index', [
             'user' => Auth::user()
         ]);
     }
-    public function editContactInfo($id)
+    public function showClientPersonalData($id)
     {
         $data = User::find($id);
         return view('contact_info.edit', ['data' => $data]);
 
     }
-    public function updateContactInfo(UserInfoValidationRequest $request)
+    public function updateData(UserInfoValidationRequest $request)
     {
         $data = User::find($request->id);
 
