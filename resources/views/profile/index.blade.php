@@ -20,7 +20,7 @@
                     </ul>
                     <div class="row">
                         <div class="col-md-4">
-                            <a href="#"><button class="btn-warning w-100">Wallet</button></a>
+                            <a href="{{"wallet/".\Illuminate\Support\Facades\Auth::user()->id}}"><button class="btn-warning w-100">Wallet</button></a>
                         </div>
                         <div class="col-md-4">
                             <a href="#"><button class="btn-primary w-100">My trips</button></a>
