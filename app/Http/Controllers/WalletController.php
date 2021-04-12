@@ -88,27 +88,56 @@ class WalletController extends Controller
     }
 
 
-    public function showWallet(Request $request)
+    public function openWallet(Request $request)
     {
-        $id = $request->userId;
-
-        $wallet = Wallet::where('userId', $id)->first();
-
-        if (!$wallet) {
-            $wallet = Wallet::create(["amount" => 0, "userId" => $id]);
+        $user = Auth::user();
+        $id = NULL;
+        if (isset($user)) {
+            $id = $user->id;
         }
 
-        return view('wallet.index', [
-            'wallet' => $wallet
-        ]);
+        $userExists = NULL;
+
+        if (isset($id)) {
+            $userExists = User::find($id);
+        }
+
+
+        if (isset($userExists)) {
+            $wallet = Wallet::where('userId', $id)->first();
+
+            if (!$wallet) {
+                $wallet = Wallet::create(["amount" => 0, "userId" => $id]);
+            }
+
+            return view('wallet.index', [
+                'wallet' => $wallet
+            ]);
+        } else {
+            return view('wallet.index', [
+                'error' => "Wallet owner is not known. Login to your account"
+            ]);
+        }
     }
 
-    public function addMoney(Request $request)
+    public function addMoney()
+    {
+        $user = Auth::user();
+        if (isset($user)) {
+            return view('wallet.add_money', [
+                'userId' => $user->id
+            ]);
+        } else {
+            return redirect("/wallet");
+        }
+    }
+
+    public function updateBalance(Request $request)
     {
         $wallet = Wallet::where("userId", $request->userId)->first();
         $currentAmount = $wallet->amount;
         $wallet->amount =  $currentAmount + $request->amount;
         $wallet->save();
-        return redirect('/wallet/' . $request->userId);
+        return redirect("/wallet");
     }
 }

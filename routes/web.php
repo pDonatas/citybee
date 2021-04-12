@@ -20,5 +20,6 @@ Route::get('/profile', [App\Http\Controllers\MainController::class, 'showProfile
 Route::get('/contact_info', [App\Http\Controllers\UsersController::class, 'showContactInfo'])->name('contact_info');
 Route::get('/edit_contact_info/{id}', [App\Http\Controllers\UsersController::class, 'editContactInfo']);
 Route::post('edit', [App\Http\Controllers\UsersController::class, 'updateContactInfo']);
-Route::get('/wallet/{userId}', [App\Http\Controllers\WalletController::class, 'showWallet']);
-Route::post('addMoney', [App\Http\Controllers\WalletController::class, 'addMoney']);
+Route::get('/wallet', [App\Http\Controllers\WalletController::class, 'openWallet']);
+Route::get('/add_money_to_wallet', [App\Http\Controllers\WalletController::class, 'addMoney']);
+Route::post('addMoney', [App\Http\Controllers\WalletController::class, 'updateBalance']);
