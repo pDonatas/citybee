@@ -10002,3 +10002,32 @@ h3 {
     border-color: #dee2e6;
   }
 }
+.message p {
+  border-radius: 14pt;
+  padding: 8px;
+}
+
+.message .user {
+  background-color: white;
+}
+
+.message .me {
+  background-color: #0099ff !important;
+  color: white !important;
+}
+
+.chat .card-body {
+    background: rgba(103,103,103,0.2);
+}
+
+.no-radius {
+    border-radius: 0 !important;
+}
+
+.chat .buttons {
+    margin-top: 30px;
+}
+
+.chat textarea {
+    min-height: 85%;
+}
