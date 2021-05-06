@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserInfoValidationRequest;
-use App\Models\User;
+use App\Models\Car;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use function PHPUnit\Framework\returnArgument;
+use Illuminate\Support\Facades\DB;
 
-class UsersController extends Controller
+class CarsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,10 +42,10 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Car $car)
     {
         //
     }
@@ -55,10 +53,10 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Car $car)
     {
         //
     }
@@ -67,10 +65,10 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Car $car)
     {
         //
     }
@@ -78,40 +76,18 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Car $car)
     {
         //
     }
-    public function showPersonalData()
+    public function showAvailableCars()
     {
-        return view('contact_info.index', [
-            'user' => Auth::user()
+        $available_cars = DB::table('cars')->where('status', '=', 'available')->get();
+        return view('cars.available_cars', [
+            'cars' => $available_cars
         ]);
-    }
-    public function showClientPersonalData($id)
-    {
-        $data = User::find($id);
-        return view('contact_info.edit', ['data' => $data]);
-
-    }
-    public function updateData(UserInfoValidationRequest $request)
-    {
-        $data = User::find($request->id);
-
-        $data->name = $request->name;
-        $data->surname = $request->surname;
-        $data->email = $request->email;
-        $data->phone = $request->phone;
-        $data->birth_date = $request->birth_date;
-        $data->save();
-
-
-        return redirect('contact_info');
-
-
-
     }
 }

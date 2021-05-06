@@ -138,6 +138,6 @@ class WalletController extends Controller
         $currentAmount = $wallet->amount;
         $wallet->amount =  $currentAmount + $request->amount;
         $wallet->save();
-        return redirect("/wallet");
+        return redirect("/wallet/".Auth::user()->id);
     }
 }

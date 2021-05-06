@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Wallet1 extends Migration
+class AddAcceptedToChats extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class Wallet1 extends Migration
      */
     public function up()
     {
-        Schema::create('wallets', function (Blueprint $table) {
-            $table->id();
-            $table->float('amount');
-            $table->bigInteger('userId')->unique();
+        Schema::table('chats', function (Blueprint $table) {
+            $table->integer('accepted')->default(0);
         });
     }
 
@@ -27,6 +25,8 @@ class Wallet1 extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wallets');
+        Schema::table('chats', function (Blueprint $table) {
+            //
+        });
     }
 }
