@@ -21,9 +21,9 @@ Route::get('/profile', [App\Http\Controllers\MainController::class, 'showProfile
 
 Route::get('/contact_info', [App\Http\Controllers\UsersController::class, 'showPersonalData'])->name('contact_info');
 Route::get('/edit_contact_info/{id}', [App\Http\Controllers\UsersController::class, 'showClientPersonalData']);
-Route::post('edit',[App\Http\Controllers\UsersController::class,'updateData']);
+Route::post('edit', [App\Http\Controllers\UsersController::class, 'updateData']);
 
-Route::get('/wallet/{id}', [App\Http\Controllers\WalletController::class, 'openWallet']);
+Route::get('/wallet', [App\Http\Controllers\WalletController::class, 'openWallet']);
 Route::get('/add_money_to_wallet', [App\Http\Controllers\WalletController::class, 'addMoney']);
 Route::post('addMoney', [App\Http\Controllers\WalletController::class, 'updateBalance']);
 
@@ -41,4 +41,3 @@ Route::get('/help/car/connect/{id}', [CustomerSuccessSpecialistController::class
 Route::get('/help/car/technical/{id}', [CustomerSuccessSpecialistController::class, 'technical'])->name('help.car.technical');
 Route::get('/help/discount/{id}', [CustomerSuccessSpecialistController::class, 'discount'])->name('help.discount');
 Route::get('/help/ban/{id}', [CustomerSuccessSpecialistController::class, 'ban'])->name('help.ban');
-
