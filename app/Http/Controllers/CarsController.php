@@ -90,4 +90,50 @@ class CarsController extends Controller
             'cars' => $available_cars
         ]);
     }
+
+    public function showAllCarsForAdmin()
+    {
+        $cars = DB::table('cars')->get();
+        return view('admin.cars', [
+            'cars' => json_encode($cars)
+        ]);
+    }
+
+    public function addCar()
+    {
+        Car::create($_POST);
+        return redirect("/admin/cars");
+    }
+
+    public function editCar($id)
+    {
+        unset($_POST["_token"]);
+        Car::where("id", $id)->update($_POST);
+        return redirect("/admin/cars");
+    }
+
+    public function deleteCars()
+    {
+        $ids = explode(",", $_POST["ids"]);
+
+        foreach ($ids as $id) {
+            Car::where("id", intval($id))->delete();
+        }
+
+        return redirect("/admin/cars");
+    }
+
+    public function showAddCar()
+    {
+        return view("admin.car_form");
+    }
+
+    public function showEditCar($id)
+    {
+        $car = DB::table("cars")->where("id", "=", $id)->first();
+        return view("admin.car_form", [
+            "car" => $car,
+            "id" => $id
+        ]);
+    }
 }

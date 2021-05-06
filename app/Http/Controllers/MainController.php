@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -29,6 +31,13 @@ class MainController extends Controller
     public function showProfile()
     {
         return view('profile.index', [
+            'user' => Auth::user()
+        ]);
+    }
+
+    public function showAdmin()
+    {
+        return view('admin.index', [
             'user' => Auth::user()
         ]);
     }

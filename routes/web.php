@@ -18,6 +18,13 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('home');
 Route::get('/profile', [App\Http\Controllers\MainController::class, 'showProfile'])->name('profile');
+Route::get('/admin', [App\Http\Controllers\MainController::class, 'showAdmin'])->name("admin");
+Route::get('/admin/cars', [App\Http\Controllers\CarsController::class, 'showAllCarsForAdmin']);
+Route::get('/admin/cars/new', [App\Http\Controllers\CarsController::class, 'showAddCar']);
+Route::get('/admin/cars/{id}', [App\Http\Controllers\CarsController::class, 'showEditCar']);
+Route::post('addCar', [App\Http\Controllers\CarsController::class, 'addCar']);
+Route::post('editCar/{id}', [App\Http\Controllers\CarsController::class, 'editCar']);
+Route::post('deleteCars', [App\Http\Controllers\CarsController::class, 'deleteCars']);
 
 Route::get('/contact_info', [App\Http\Controllers\UsersController::class, 'showPersonalData'])->name('contact_info');
 Route::get('/edit_contact_info/{id}', [App\Http\Controllers\UsersController::class, 'showClientPersonalData']);
