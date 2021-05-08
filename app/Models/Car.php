@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Car extends Model
 {
@@ -18,6 +19,12 @@ class Car extends Model
         'number_plate',
         "maintenance_end",
         "insurance_end",
-        "registration_certificate_number"
+        "registration_certificate_number",
+        'locked'
     ];
+
+    public function rentSession(): HasMany
+    {
+        return $this->hasMany(RentSession::class);
+    }
 }

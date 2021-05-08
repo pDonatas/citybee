@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAcceptedToChats extends Migration
+class AddUserIdToRentSessions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddAcceptedToChats extends Migration
      */
     public function up()
     {
-        Schema::table('chats', function (Blueprint $table) {
-            $table->integer('accepted')->default(0);
+        Schema::table('rent_sessions', function (Blueprint $table) {
+            $table->integer('user_id')->nullable();
+            $table->integer('car_id')->nullable();
         });
     }
 
@@ -25,8 +26,9 @@ class AddAcceptedToChats extends Migration
      */
     public function down()
     {
-        Schema::table('chats', function (Blueprint $table) {
-            $table->dropColumn('accepted');
+        Schema::table('rent_sessions', function (Blueprint $table) {
+            $table->dropColumn('user_id');
+            $table->dropColumn('car_id');
         });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAcceptedToChats extends Migration
+class CreateTableDiscountUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddAcceptedToChats extends Migration
      */
     public function up()
     {
-        Schema::table('chats', function (Blueprint $table) {
-            $table->integer('accepted')->default(0);
+        Schema::create('discount_user', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id');
+            $table->integer('discount_id');
+            $table->boolean('active')->default(true);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddAcceptedToChats extends Migration
      */
     public function down()
     {
-        Schema::table('chats', function (Blueprint $table) {
-            $table->dropColumn('accepted');
-        });
+        Schema::dropIfExists('table_discount_user');
     }
 }

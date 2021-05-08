@@ -29,10 +29,12 @@
                     <div class="col-md-3 buttons">
                         <button type="submit" id="submit" disabled class="btn btn-primary form-control no-radius btn-block">Submit</button>
                         @if (auth()->user()->role > 0 && $chat->initiator != auth()->id())
-                        <a href="{{route('help.car.connect', $chat->initiator)}}"><button type="button" class="btn btn-primary form-control no-radius">Connect to the car</button></a>
-                        <a href="{{route('help.car.technical', $chat->initiator)}}"><button type="button" class="btn btn-primary form-control no-radius">Call for technical service</button></a>
-                        <a href="{{route('help.discount', $chat->initiator)}}"><button type="button" class="btn btn-primary form-control no-radius">Give client a discount</button></a>
-                        <a href="{{route('help.ban', $chat->initiator)}}"><button type="button" class="btn btn-primary form-control no-radius">Ban the user</button></a>
+                            @if (\App\Models\User::find($chat->initiator)->rents()->where('end_time', NULL)->count() > 0)
+                                <a href="{{route('help.car.connect', \App\Models\User::find($chat->initiator)->rents()->where('end_time', NULL)->first())}}"><button type="button" class="btn btn-primary form-control no-radius">Connect to the car</button></a>
+                                <button onclick="technicalHelp()" type="button" class="btn btn-primary form-control no-radius">Call for technical service</button>
+                            @endif
+                            <a href="{{route('help.discount', $chat->initiator)}}"><button type="button" class="btn btn-primary form-control no-radius">Give client a discount</button></a>
+                            <button onclick="banUser()" type="button" class="btn btn-primary form-control no-radius">Ban the user</button>
                         @endif
                     </div>
                 </div>
@@ -86,6 +88,51 @@
                 });
             }, 1000);
         });
+
+        async function technicalHelp() {
+            $.post({
+                url: "/api/updateCarData",
+                data: {
+                    id: {{\App\Models\User::find($chat->initiator)->rents()->where('end_time', NULL)->first()->car()->first()->id}},
+                    status: "Not working"
+                }
+            }).done(function(response) {
+                $("#modal-text").text(response.success);
+                $('#exampleModal').modal();
+            })
+        }
+
+        async function banUser() {
+            $.post({
+                url: "/api/banUser",
+                data: {
+                    id: {{$chat->initiator}}
+                }
+            }).done(function(response) {
+                console.log(response);
+                $("#modal-text").text(response.success);
+                $('#exampleModal').modal();
+            })
+        }
     </script>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE876;</i>
+                    </div>
+                    <h4 class="modal-title w-100">Success!</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="modal-text" class="text-center"></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
     @endauth
 @endsection
