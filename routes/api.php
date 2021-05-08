@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CustomerSuccessSpecialists\CustomerSuccessSpecialistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/refresh/{id}', [CustomerSuccessSpecialistController::class, 'refresh']);
+Route::post('/updateCarData', [AdminController::class, 'updateCarData']);
+Route::post('/banUser', [AdminController::class, 'banUser']);

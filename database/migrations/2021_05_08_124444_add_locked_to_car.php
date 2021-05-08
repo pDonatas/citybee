@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAcceptedToChats extends Migration
+class AddLockedToCar extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddAcceptedToChats extends Migration
      */
     public function up()
     {
-        Schema::table('chats', function (Blueprint $table) {
-            $table->integer('accepted')->default(0);
+        Schema::table('cars', function (Blueprint $table) {
+            $table->boolean('locked')->default(true);
         });
     }
 
@@ -25,8 +25,8 @@ class AddAcceptedToChats extends Migration
      */
     public function down()
     {
-        Schema::table('chats', function (Blueprint $table) {
-            $table->dropColumn('accepted');
+        Schema::table('cars', function (Blueprint $table) {
+            $table->dropColumn('locked');
         });
     }
 }

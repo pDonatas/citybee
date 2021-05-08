@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerSuccessSpecialists\CustomerSuccessSpecialistController;
@@ -44,7 +45,9 @@ Route::post('/help/write/{id}', [CustomerSuccessSpecialistController::class, 'wr
 Route::get('/help/chats', [CustomerSuccessSpecialistController::class, 'showChats'])->name('help.chats');
 Route::get('/help/accept/{id}', [CustomerSuccessSpecialistController::class, 'accept'])->name('help.accept');
 Route::get('/help/chat/{id}', [CustomerSuccessSpecialistController::class, 'chat'])->name('help.chat');
-Route::get('/help/car/connect/{id}', [CustomerSuccessSpecialistController::class, 'connect'])->name('help.car.connect');
-Route::get('/help/car/technical/{id}', [CustomerSuccessSpecialistController::class, 'technical'])->name('help.car.technical');
-Route::get('/help/discount/{id}', [CustomerSuccessSpecialistController::class, 'discount'])->name('help.discount');
-Route::get('/help/ban/{id}', [CustomerSuccessSpecialistController::class, 'ban'])->name('help.ban');
+Route::get('/help/car/connect/{id}', [AdminController::class, 'showCarControls'])->name('help.car.connect');
+Route::get('/help/car/technical/{id}', [AdminController::class, 'technical'])->name('help.car.technical');
+Route::get('/help/discount/{id}', [AdminController::class, 'showDiscounts'])->name('help.discount');
+Route::post('/help/discount/{id}', [AdminController::class, 'submitDiscount'])->name('help.submit.discount');
+//Car
+Route::get('/lock/{id}', [AdminController::class, 'lockCar'])->name('lock');
