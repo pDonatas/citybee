@@ -12,7 +12,7 @@
                     </ul>
                 </div>
                     <div class="col-md-4">
-                        <a><button class="btn-primary">Rent</button></a>
+                        <a href="{{"reserve_car/".$car->id}}"><button class="btn-primary">Reserve</button></a>
                     </div>
                 @endforeach
             </div>
