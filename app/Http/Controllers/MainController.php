@@ -37,8 +37,12 @@ class MainController extends Controller
 
     public function showAdmin()
     {
-        return view('admin.index', [
-            'user' => Auth::user()
-        ]);
+        if (Auth::user()->role == 2) {
+            return view('admin.index', [
+                'user' => Auth::user()
+            ]);
+        } else {
+            return redirect("/");
+        }
     }
 }
