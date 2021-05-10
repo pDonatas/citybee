@@ -34,7 +34,8 @@ Route::post('edit', [App\Http\Controllers\UsersController::class, 'updateData'])
 Route::get('/wallet', [App\Http\Controllers\WalletController::class, 'openWallet']);
 Route::get('/add_money_to_wallet', [App\Http\Controllers\WalletController::class, 'addMoney']);
 Route::post('addMoney', [App\Http\Controllers\WalletController::class, 'updateBalance']);
-
+//Trips history
+Route::get('/trips_history', [App\Http\Controllers\RentController::class, 'showTripsHistory']);
 //Car Rent
 Route::get('/available_cars', [App\Http\Controllers\CarsController::class, 'showAvailableCars'])->name('available_cars');
 Route::get('/reserve_car/{id}', [App\Http\Controllers\RentController::class, 'showRentWindow']);

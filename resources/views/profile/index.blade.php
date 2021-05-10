@@ -23,7 +23,7 @@
                         <a href="/wallet"><button class="btn-warning w-100">Wallet</button></a>
                     </div>
                     <div class="col-md-4">
-                        <a href="#"><button class="btn-primary w-100">My trips</button></a>
+                        <a href="/trips_history"><button class="btn-primary w-100">My trips</button></a>
                     </div>
                     <div class="col-md-4">
                         <a href="{{route('contact_info')}}"><button class="btn-secondary w-100">Contact info</button></a>

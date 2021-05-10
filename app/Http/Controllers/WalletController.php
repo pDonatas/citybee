@@ -140,10 +140,5 @@ class WalletController extends Controller
         $wallet->save();
         return redirect("/wallet");
     }
-    public function changeBalanceAfterTrip(Request $request)
-    {
-        $wallet = Wallet::where("userId", $request->userId)->first();
-        $currentAmount = $wallet->amount;
-        $wallet->amount =  $currentAmount;
-    }
+
 }

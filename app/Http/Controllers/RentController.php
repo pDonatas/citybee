@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\RentSession;
+use App\Models\Wallet;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -62,6 +63,16 @@ class RentController extends Controller
         Carbon::parse($start_time);
         $diff_in_minutes = $time->diffInMinutes($start_time);
         $price = $diff_in_minutes*$rented_car->pay_per_minute;
+        DB::table('rent_sessions')
+            ->where('user_id',$userId)
+            ->where('car_id' ,$id)
+            ->where('end_time', $end_time)
+            ->update(['price' => $price]);
+
+        $wallet = Wallet::where("userId", $userId)->first();
+        $currentAmount = $wallet->amount;
+        $wallet->amount =  $currentAmount - $price;
+        $wallet->save();
 
         return view('rent.rent_window',[
             'car' => $rented_car,
@@ -69,6 +80,17 @@ class RentController extends Controller
             'end_time' => $end_time,
             'minutes' => $diff_in_minutes,
             'price' => $price
+        ]);
+    }
+    public function showTripsHistory()
+    {
+        $user_trips = DB::table('rent_sessions')
+            ->where('user_id', Auth::id())
+            ->get();
+        $cars = DB::table('cars')->get();
+        return view('trips_history.my_trips',[
+            'trips' => $user_trips,
+            'cars' => $cars
         ]);
     }
 }
