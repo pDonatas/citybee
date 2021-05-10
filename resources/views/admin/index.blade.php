@@ -8,10 +8,11 @@
             height: 150px;
             background-size: cover;
             background-position: center;
-            border: 2px solid black;
             border-radius: 7px;
             transition: all 0.2s;
             position: relative;
+            border: none;
+            box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.1);
         }
 
         .admin-card:hover {
