@@ -65,7 +65,10 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
+                                @if (auth()->user()->role == 2)
                                 <a class="dropdown-item" href="{{ route('admin') }}">Admin</a>
+                                @endif
+
                                 @if (auth()->user()->role >= 1)
                                 <a class="dropdown-item" href="{{ route('help.chats') }}">Customer success specialist panel</a>
                                 @endif

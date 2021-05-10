@@ -95,7 +95,6 @@ class UsersController extends Controller
     {
         $data = User::find($id);
         return view('contact_info.edit', ['data' => $data]);
-
     }
     public function updateData(UserInfoValidationRequest $request)
     {
@@ -110,8 +109,46 @@ class UsersController extends Controller
 
 
         return redirect('contact_info');
+    }
+
+    public function showUsersForAdmin()
+    {
+        if (Auth::user()->role == 2) {
+            $users = User::get();
+            return view('admin.users', ['users' => $users]);
+        } else {
+            return redirect("/");
+        }
+    }
 
 
+    public function blockUsers()
+    {
+        if (Auth::user()->role == 2) {
+            $ids = explode(",", $_POST["ids"]);
 
+            foreach ($ids as $id) {
+                User::where("id", intval($id))->update(["is_suspended" => 1]);
+            }
+
+            return redirect("/admin/users");
+        } else {
+            return redirect("/");
+        }
+    }
+
+    public function unblockUsers()
+    {
+        if (Auth::user()->role == 2) {
+            $ids = explode(",", $_POST["ids"]);
+
+            foreach ($ids as $id) {
+                User::where("id", intval($id))->update(["is_suspended" => 0]);
+            }
+
+            return redirect("/admin/users");
+        } else {
+            return redirect("/");
+        }
     }
 }

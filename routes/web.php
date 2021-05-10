@@ -23,6 +23,9 @@ Route::get('/admin', [App\Http\Controllers\MainController::class, 'showAdmin'])-
 Route::get('/admin/cars', [App\Http\Controllers\CarsController::class, 'showAllCarsForAdmin']);
 Route::get('/admin/cars/new', [App\Http\Controllers\CarsController::class, 'showAddCar']);
 Route::get('/admin/cars/{id}', [App\Http\Controllers\CarsController::class, 'showEditCar']);
+Route::get('/admin/users', [App\Http\Controllers\UsersController::class, 'showUsersForAdmin']);
+Route::post('blockUsers', [App\Http\Controllers\UsersController::class, 'blockUsers']);
+Route::post('unblockUsers', [App\Http\Controllers\UsersController::class, 'unblockUsers']);
 Route::post('addCar', [App\Http\Controllers\CarsController::class, 'addCar']);
 Route::post('editCar/{id}', [App\Http\Controllers\CarsController::class, 'editCar']);
 Route::post('deleteCars', [App\Http\Controllers\CarsController::class, 'deleteCars']);
