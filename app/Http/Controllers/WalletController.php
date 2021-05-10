@@ -140,4 +140,5 @@ class WalletController extends Controller
         $wallet->save();
         return redirect("/wallet");
     }
+
 }

@@ -29,17 +29,21 @@ Route::post('unblockUsers', [App\Http\Controllers\UsersController::class, 'unblo
 Route::post('addCar', [App\Http\Controllers\CarsController::class, 'addCar']);
 Route::post('editCar/{id}', [App\Http\Controllers\CarsController::class, 'editCar']);
 Route::post('deleteCars', [App\Http\Controllers\CarsController::class, 'deleteCars']);
-
+//Contact info
 Route::get('/contact_info', [App\Http\Controllers\UsersController::class, 'showPersonalData'])->name('contact_info');
 Route::get('/edit_contact_info/{id}', [App\Http\Controllers\UsersController::class, 'showClientPersonalData']);
 Route::post('edit', [App\Http\Controllers\UsersController::class, 'updateData']);
-
+//Wallet
 Route::get('/wallet', [App\Http\Controllers\WalletController::class, 'openWallet']);
 Route::get('/add_money_to_wallet', [App\Http\Controllers\WalletController::class, 'addMoney']);
 Route::post('addMoney', [App\Http\Controllers\WalletController::class, 'updateBalance']);
-
-
+//Trips history
+Route::get('/trips_history', [App\Http\Controllers\RentController::class, 'showTripsHistory']);
+//Car Rent
 Route::get('/available_cars', [App\Http\Controllers\CarsController::class, 'showAvailableCars'])->name('available_cars');
+Route::get('/reserve_car/{id}', [App\Http\Controllers\RentController::class, 'showRentWindow']);
+Route::get('/rent_car/{id}', [App\Http\Controllers\RentController::class, 'startRent']);
+Route::get('/end_rent/{id}', [App\Http\Controllers\RentController::class, 'endRent']);
 
 
 //Customer success specialist
